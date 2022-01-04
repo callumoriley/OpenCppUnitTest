@@ -1,2 +1,2 @@
 # OpenCppUnitTest
-A simple implementation of CppUnitTest.h from Microsoft
+A simple implementation of CppUnitTest.h
