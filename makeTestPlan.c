@@ -24,20 +24,20 @@ int main(int argc, char *argv[])
 
     fprintf(writeFilePointer, "#include <iostream>\n#include \"%s\"\n\nint main(void)\n{\n", (argc >= 2) ? argv[1] : DEFAULT_TEST_NAME);
 
-    while (fgets(currLine, MAX_LINE_LEN, sourceFilePointer) != NULL)
+    while (fgets(currLine, MAX_LINE_LEN, sourceFilePointer))
     {
-        if (strstr(currLine, "namespace") != NULL)
+        if (strstr(currLine, "namespace"))
         {
             sscanf(currLine, "%*s %s", namespaceName);
         }
-        else if (strstr(currLine, "TEST_CLASS") != NULL)
+        else if (strstr(currLine, "TEST_CLASS"))
         {
             sscanf(currLine, "%*[^(](%[^)]", currClassName);
             currObjectName++;
             fprintf(writeFilePointer, "\t%s::%s %c;\n", namespaceName, currClassName, currObjectName);
             fprintf(writeFilePointer, "\tputs(\"%s\");\n", currClassName);
         }
-        else if (strstr(currLine, "TEST_METHOD") != NULL)
+        else if (strstr(currLine, "TEST_METHOD"))
         {
             sscanf(currLine, "%*[^(](%[^)]", currMethodName);
             fprintf(writeFilePointer, "\tputs(\"%s\");\n\t%c.%s();\n", currMethodName, currObjectName, currMethodName);
